@@ -202,7 +202,7 @@
         <div class="divContent" style="width: 60%;">
             <div class="linha">
                 <div class="divContent" style="text-align: center;">
-                    <img class="img-prod" src="assets/img/vector (5).png">
+                    <img class="img-prod" src=<?php echo isset($pedido[0]->link) ?$pedido[0]->link : "assets/img/vector (5).png"  ?>>
                 </div>
                 <!-- <div class="divContent" style="width: 50%; text-align: center;">
                     <img class="img-prod" src="assets/img/vector (5).png">
@@ -295,7 +295,7 @@
                 </div>
             </div>
             <div class="divContent" style="width: 50%; text-align: center;">
-                <img class="img-prod" src="assets/img/vector (5).png">
+                <img class="img-prod" src=<?php echo isset($pedido[0]->link) ?$pedido[0]->link : "assets/img/vector (5).png"  ?>>
             </div>
         </div>
 

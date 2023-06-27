@@ -13,39 +13,28 @@ class PdfLeet_controller extends BaseController{
             'pedido' => $this->pdfzinModel->carregaPedidos($pedidos)
         ];
 
+        $post = [
+            'file'=> $data["pedido"][0]->foto_pedido, 
+            'path'=>'uploadLeet',
+            'json' => true
+        ];
+        
+        $ch = curl_init('https://gsplanaltec.com/GerenciamentoServicos/APIControle/s3files');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        
+        // execute!
+        $response = curl_exec($ch);
+        
+        // close the connection, release resources used
+        curl_close($ch);
+        
+        // do anything you want with your response
+        $linkIMG = json_decode($response);
+        $data['pedido'][0]->link = $linkIMG;
+
         foreach($data['pedido'] as $pedido) {
             $pedido->produtos = $this->pdfzinModel->carregaProdutosPedidos($pedido->id_pedido);
-
-             /* Endpoint */
-            $url = 'https://gsplanaltec.com/GerenciamentoServicos/APIControle/s3files';
-    
-            /* eCurl */
-            $curl = curl_init($url);
-    
-            /* Data */
-            $SendData = [
-                'file'=> $pedido->foto_pedido, 
-                'path'=>'uploadLeet'
-            ];
-    
-            /* Set JSON data to POST */
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $SendData);
-                
-            /* Define content type */
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-                
-            /* Return json */
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                
-            /* make request */
-            $result = curl_exec($curl);
-                
-            /* close curl */
-            curl_close($curl);
-
-            var_dump($result);
-            exit;
-
             foreach($pedido->produtos as $produto) {
                 $produto->acrescimos = $this->pdfzinModel->carregaAcrescimosProdutosPedidos($pedido->id_pedido, $produto->produtos_pedido);
             }

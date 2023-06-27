@@ -37,7 +37,7 @@ $routes->get('/CadsCliente', 'Dash_controller::CadsCliente');
 $routes->get('/CadsProduto', 'Dash_controller::CadsProduto');
 $routes->get('/CadsUsuario', 'Dash_controller::CadsUsuario');
 $routes->get('/CadsAcrescimo', 'Dash_controller::CadsAcrescimo');
-$routes->get('/pdfLeet', 'pdfLeet_controller::pdfLeet');///(:any)/$1
+$routes->get('/pdfLeet', 'PdfLeet_controller::pdfLeet');///(:any)/$1
 
 
 //controllers
